@@ -1,11 +1,769 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SELLAMI Anis Portfolios</title>
+    <title>Anis Sellami — Développeur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #f4f4f4;
+            --ink: #0d0d0d;
+            --muted: #888888;
+            --border: rgba(0,0,0,0.1);
+            --card: #e8e8e8;
+            --max: 1280px;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        /* Conteneur centré global */
+        .wrap {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 6%;
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(244,244,244,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 20px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+
+        .nav-links a {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--ink); }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Panneau gris droit — relatif au viewport mais bridé par le max-width */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            /* démarre là où finit la moitié gauche du conteneur */
+            left: calc(50% + (100vw - var(--max)) / 2 + var(--max) * 0.5);
+            height: 100%;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .hero .wrap {
+            padding-top: 100px;
+            padding-bottom: 80px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3.5rem, 5.5vw, 6.5rem);
+            line-height: 1.02;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 em { font-style: italic; color: #555; }
+
+        .hero-desc {
+            max-width: 440px;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--muted);
+            margin-bottom: 3rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Syne', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--cream);
+            background: var(--ink);
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 2px;
+            transition: background 0.25s, transform 0.2s;
+        }
+
+        .hero-cta:hover { background: #333; transform: translateY(-2px); }
+        .hero-cta svg { transition: transform 0.2s; }
+        .hero-cta:hover svg { transform: translateX(4px); }
+
+        .hero-right { padding: 0 5%; }
+
+        .hero-stats { display: flex; flex-direction: column; }
+
+        .stat-item {
+            border-bottom: 1px solid rgba(0,0,0,0.12);
+            padding: 28px 0;
+        }
+
+        .stat-item:first-child { padding-top: 0; }
+        .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+            letter-spacing: -0.04em;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ─── SECTIONS ─── */
+        .section { padding: 110px 0; }
+
+        .section-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--ink);
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 3rem;
+        }
+
+        /* ─── À PROPOS ─── */
+        #about { background: var(--ink); color: var(--cream); }
+        #about .section-label { color: rgba(244,244,244,0.35); }
+        #about .section-label::before { background: rgba(244,244,244,0.25); }
+        #about .section-title { color: var(--cream); }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .about-text { font-size: 1.05rem; line-height: 1.8; color: rgba(244,244,244,0.6); }
+        .about-text p + p { margin-top: 1.2rem; }
+        .about-text strong { color: var(--cream); font-weight: 500; }
+
+        .about-aside { display: flex; flex-direction: column; gap: 36px; padding-top: 8px; }
+
+        .aside-block h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: rgba(244,244,244,0.3);
+            margin-bottom: 14px;
+        }
+
+        .aside-block ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .aside-block li {
+            font-size: 0.82rem;
+            color: rgba(244,244,244,0.55);
+            background: rgba(244,244,244,0.05);
+            border: 1px solid rgba(244,244,244,0.09);
+            padding: 5px 14px;
+            border-radius: 2px;
+        }
+
+        /* ─── COMPÉTENCES ─── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .skill-group {
+            background: var(--card);
+            padding: 36px 32px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-group h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink);
+            margin-bottom: 20px;
+        }
+
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .skill-tag {
+            font-size: 0.82rem;
+            color: var(--muted);
+            background: var(--cream);
+            border: 1px solid var(--border);
+            padding: 5px 13px;
+            border-radius: 2px;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            cursor: default;
+        }
+
+        .skill-tag:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+        /* ─── EXPÉRIENCES ─── */
+        .xp-list { display: flex; flex-direction: column; }
+
+        .xp-item {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 60px;
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .xp-item:first-child { border-top: 1px solid var(--border); }
+        .xp-meta { padding-top: 6px; }
+
+        .xp-duration {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .xp-company { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+        .xp-content h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.55rem;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .xp-content p { font-size: 0.95rem; line-height: 1.75; color: var(--muted); margin-bottom: 18px; }
+
+        .xp-tasks { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+
+        .xp-tasks li { font-size: 0.88rem; color: var(--muted); padding-left: 18px; position: relative; }
+
+        .xp-tasks li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--ink);
+            font-size: 0.75rem;
+        }
+
+        .xp-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .xp-stack span {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink);
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 2px;
+        }
+
+        /* ─── FORMATION ─── */
+        #education { background: var(--card); }
+
+        .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+        .edu-card {
+            background: var(--cream);
+            padding: 44px 40px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .edu-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--ink);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        .edu-card:hover::after { transform: scaleX(1); }
+
+        .edu-year {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.5rem;
+            letter-spacing: -0.05em;
+            color: rgba(0,0,0,0.06);
+            position: absolute;
+            top: 20px; right: 32px;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .edu-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .edu-subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+        .edu-school { font-size: 0.88rem; color: var(--muted); }
+
+        /* ─── CONTACT ─── */
+        #contact { background: var(--ink); color: var(--cream); }
+
+        #contact .wrap { text-align: center; padding-top: 120px; padding-bottom: 120px; }
+
+        #contact .section-label { justify-content: center; color: rgba(244,244,244,0.3); }
+        #contact .section-label::before { background: rgba(244,244,244,0.2); }
+
+        #contact .section-title {
+            color: var(--cream);
+            font-size: clamp(2.5rem, 4vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        #contact .sub {
+            font-size: 1.05rem;
+            color: rgba(244,244,244,0.4);
+            max-width: 460px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+        .contact-link {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 2px;
+            transition: all 0.25s;
+        }
+
+        .contact-link.primary { background: var(--cream); color: var(--ink); }
+        .contact-link.primary:hover { background: #ddd; transform: translateY(-2px); }
+
+        .contact-link.secondary {
+            background: transparent;
+            color: rgba(244,244,244,0.45);
+            border: 1px solid rgba(244,244,244,0.15);
+        }
+
+        .contact-link.secondary:hover { color: var(--cream); border-color: rgba(244,244,244,0.4); }
+
+        /* ─── FOOTER ─── */
+        footer { background: var(--ink); border-top: 1px solid rgba(244,244,244,0.07); }
+
+        footer .wrap {
+            padding-top: 24px;
+            padding-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            font-size: 0.78rem;
+            color: rgba(244,244,244,0.22);
+            font-family: 'Syne', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1100px) {
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .hero .wrap { grid-template-columns: 1fr; padding-top: 120px; }
+            .hero::before { display: none; }
+            .hero-right {
+                padding: 36px;
+                background: var(--card);
+                border-radius: 4px;
+            }
+            .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 24px; }
+            .stat-item { border-bottom: none; padding: 0; }
+            .about-grid { grid-template-columns: 1fr; gap: 48px; }
+            .xp-item { grid-template-columns: 1fr; gap: 12px; }
+            .edu-grid { grid-template-columns: 1fr; }
+            .nav-links { gap: 1.5rem; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .nav-inner { padding: 16px 5%; }
+            .section { padding: 80px 0; }
+            .hero h1 { font-size: 3rem; }
+            .nav-links a { font-size: 0.68rem; letter-spacing: 0.08em; }
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="#accueil" class="nav-logo">Anis Sellami</a>
+        <div class="nav-links">
+            <a href="#about">À propos</a>
+            <a href="#skills">Compétences</a>
+            <a href="#xp">Expériences</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<section id="accueil" class="hero">
+    <div class="wrap">
+        <div class="hero-left reveal">
+            <p class="hero-tag">Développeur Full-Stack · Alternant</p>
+            <h1>Anis<br><em>Sellami</em>.</h1>
+            <p class="hero-desc">
+                Étudiant en B.U.T Informatique, je construis des applications web robustes, configure des infrastructures Linux, et explore la 3D en temps réel. Basé dans l'Ain, disponible.
+            </p>
+            <a href="mailto:anis.sellami@etu.univ-lyon1.fr" class="hero-cta">
+                Me contacter
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="hero-right reveal" style="transition-delay:0.15s">
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Années de formation</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Langages & technologies</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">B2</div>
+                    <div class="stat-label">Niveau d'anglais</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="section">
+    <div class="wrap">
+        <p class="section-label">À propos</p>
+        <h2 class="section-title">Bâtisseur de solutions,<br>curieux par nature.</h2>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <p>Actuellement en <strong>B.U.T Informatique</strong> à l'Université Claude Bernard Lyon 1 (antenne de Bourg-en-Bresse), je travaille en parallèle en <strong>alternance chez Lalemant France</strong> sur un projet Full-Stack en production réelle — développement de fonctionnalités métier, recueil de besoins, gestion d'un VPS Linux.</p>
+                <p>Mon approche : comprendre l'architecture globale avant d'écrire la première ligne. J'aime autant <strong>déployer un serveur Debian sécurisé</strong> que modéliser un objet dans Blender ou composer un morceau sur FL Studio. La technique est un outil, pas une fin en soi.</p>
+                <p>En dehors du code, je fais du MMA, du graphisme, du montage vidéo, et je m'investis dans des projets artistiques divers et variés.</p>
+            </div>
+            <div class="about-aside reveal" style="transition-delay:0.1s">
+                <div class="aside-block">
+                    <h4>Langues</h4>
+                    <ul><li>Français — C2</li><li>Anglais — B2</li><li>Arabe — A2</li></ul>
+                </div>
+                <div class="aside-block">
+                    <h4>Soft skills</h4>
+                    <ul><li>Créativité</li><li>Adaptabilité</li><li>Travail en équipe</li><li>Curiosité</li></ul>
+                </div>
+                <div class="aside-block">
+                    <h4>Centres d'intérêt</h4>
+                    <ul><li>MMA</li><li>Musique (FL Studio)</li><li>Graphisme</li><li>Montage vidéo</li><li>Bénévolat</li></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="skills" class="section">
+    <div class="wrap">
+        <p class="section-label">Compétences</p>
+        <h2 class="section-title">Technologies & outils.</h2>
+        <div class="skills-grid">
+            <div class="skill-group reveal">
+                <h3>Backend & Systèmes</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">PHP</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">SQLite</span><span class="skill-tag">Linux (Debian)</span>
+                </div>
+            </div>
+            <div class="skill-group reveal" style="transition-delay:0.08s">
+                <h3>Frontend & 3D</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">TypeScript</span><span class="skill-tag">Three.js</span><span class="skill-tag">CakePHP</span>
+                </div>
+            </div>
+            <div class="skill-group reveal" style="transition-delay:0.16s">
+                <h3>DevOps & Outils</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">GitLab CI/CD</span><span class="skill-tag">Apache</span><span class="skill-tag">Fail2Ban</span>
+                    <span class="skill-tag">CrowdSec</span><span class="skill-tag">Git</span><span class="skill-tag">Trello</span><span class="skill-tag">Notion</span>
+                </div>
+            </div>
+            <div class="skill-group reveal" style="transition-delay:0.24s">
+                <h3>Création & Design</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Blender</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Premiere Pro</span>
+                    <span class="skill-tag">FL Studio</span><span class="skill-tag">Processing</span><span class="skill-tag">Qt</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="xp" class="section" style="background:var(--card)">
+    <div class="wrap">
+        <p class="section-label">Expériences</p>
+        <h2 class="section-title">Ce que j'ai construit.</h2>
+        <div class="xp-list">
+            <div class="xp-item reveal">
+                <div class="xp-meta">
+                    <div class="xp-duration">Sept. 2025 →</div>
+                    <div class="xp-company">Alternant<br>Lalemant France<br>Saint-Vulbas</div>
+                </div>
+                <div class="xp-content">
+                    <h3>Développement Full-Stack & gestion d'infrastructure web</h3>
+                    <p>Intégration au sein d'une équipe à taille humaine avec une forte autonomie technique. Interactions régulières avec les utilisateurs finaux pour adapter les développements.</p>
+                    <ul class="xp-tasks">
+                        <li>Développement de nouvelles fonctionnalités métier sur l'application Ask Tracking</li>
+                        <li>Recueil des besoins et traduction en solutions techniques</li>
+                        <li>Suivi de projet et participation aux réunions techniques</li>
+                    </ul>
+                    <div class="xp-stack">
+                        <span>PHP</span><span>JavaScript</span><span>MySQL</span><span>GitLab CI/CD</span><span>Linux VPS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xp-item reveal">
+                <div class="xp-meta">
+                    <div class="xp-duration">Avr. – Juin 2025</div>
+                    <div class="xp-company">Stage 2ème année<br>Lalemant France<br>Saint-Vulbas</div>
+                </div>
+                <div class="xp-content">
+                    <h3>Migration web vers VPS & refonte front-end</h3>
+                    <p>10 semaines d'autonomie complète au sein du service informatique pour moderniser l'infrastructure et l'interface de l'application.</p>
+                    <ul class="xp-tasks">
+                        <li>Déploiement d'un serveur Linux Debian avec architecture LAMP</li>
+                        <li>Sécurisation de l'infrastructure (Fail2Ban, CrowdSec)</li>
+                        <li>Création d'un pipeline GitLab CI/CD pour l'automatisation des déploiements</li>
+                        <li>Refonte de l'ergonomie de l'application</li>
+                    </ul>
+                    <div class="xp-stack">
+                        <span>Debian</span><span>Apache</span><span>MySQL</span><span>PHP</span><span>Git</span><span>GitLab CI/CD</span><span>CrowdSec</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xp-item reveal">
+                <div class="xp-meta">
+                    <div class="xp-duration">6 mois</div>
+                    <div class="xp-company">Projet universitaire<br>Université Lyon 1</div>
+                </div>
+                <div class="xp-content">
+                    <h3>Métier à tisser Jacquard en 3D</h3>
+                    <p>Projet informatique en équipe de 4 personnes. Représentation interactive d'un métier à tisser Jacquard en 3D directement dans le navigateur.</p>
+                    <ul class="xp-tasks">
+                        <li>Modélisation 3D des pièces mécaniques sur Blender</li>
+                        <li>Intégration et hébergement des modèles 3D via Three.js</li>
+                        <li>Développement d'une interface web intuitive autour de la scène 3D</li>
+                    </ul>
+                    <div class="xp-stack">
+                        <span>TypeScript</span><span>Three.js</span><span>HTML</span><span>CSS</span><span>PHP</span><span>Blender</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="education" class="section">
+    <div class="wrap">
+        <p class="section-label">Formation</p>
+        <h2 class="section-title">Parcours académique.</h2>
+        <div class="edu-grid">
+            <div class="edu-card reveal">
+                <span class="edu-year">23</span>
+                <h3>B.U.T Informatique</h3>
+                <p class="edu-subtitle">Bachelor Universitaire de Technologie — 3 ans</p>
+                <p class="edu-school">Université Claude Bernard Lyon 1 · Bourg-en-Bresse<br>2023 — en cours</p>
+            </div>
+            <div class="edu-card reveal" style="transition-delay:0.1s">
+                <span class="edu-year">22</span>
+                <h3>Baccalauréat Général</h3>
+                <p class="edu-subtitle">Spécialités Mathématiques & N.S.I.</p>
+                <p class="edu-school">2022 – 2023</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="wrap">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Travaillons ensemble.</h2>
+        <p class="sub">Vous avez un projet, une opportunité ou une question ? Mon adresse est ouverte.</p>
+        <div class="contact-links">
+            <a href="mailto:anis.sellami@etu.univ-lyon1.fr" class="contact-link primary">
+                anis.sellami@etu.univ-lyon1.fr
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">
+        <p>© 2026 Anis Sellami</p>
+        <p>Péronnas, Ain · France</p>
+    </div>
+</footer>
+
+<script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + current ? 'var(--ink)' : '';
+        });
+    });
+</script>
 
 </body>
 </html>
